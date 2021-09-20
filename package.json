@@ -1,0 +1,26 @@
+{
+  "name": "api-bauen",
+  "version": "1.0.0",
+  "description": "api_bauen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kauangouveia/Bauen-Api.git"
+  },
+  "author": "kauan gouveia, helder siqueira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kauangouveia/Bauen-Api/issues"
+  },
+  "homepage": "https://github.com/kauangouveia/Bauen-Api#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5"
+  }
+}

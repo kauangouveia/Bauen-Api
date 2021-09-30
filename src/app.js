@@ -1,5 +1,9 @@
-const express = require("express");
+import express from "express";
+import route from "./routes/public/index.js";
+
+
 const app = express();
-//dizemos para o express que ele pode aceitar json
 app.use(express.json());
-module.exports = app;
+app.use(route)
+
+export default app;

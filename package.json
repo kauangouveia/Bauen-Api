@@ -25,6 +25,7 @@
   },
   "type": "module",
   "dependencies": {
+    "cors": "^2.8.5",
     "knex": "^0.95.11",
     "mysql": "^2.18.1"
   }

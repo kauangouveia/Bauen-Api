@@ -1,13 +1,15 @@
 import knex from 'knex';
+import {DATABASE} from "../../utils/constants"
+
 
 const bauenConfig = {
-  client: "mysql2",
+  client: DATABASE.DIALECT,
   connection: {
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "bcd127",
-    database: 'bauen',
+    host: DATABASE.HOST,
+    port: DATABASE.PORT,
+    user: DATABASE.USER,
+    password: DATABASE.PASSWORD,
+    database: DATABASE.NAME,
     options: {
       encrypt: false,
       enableArithAbort: false,

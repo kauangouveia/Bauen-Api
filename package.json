@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --es-module-specifier-resolution=node ./src/index.js"
+    "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,8 @@
     "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.11",
-    "mysql": "^2.18.1"
+    "koa": "^2.13.3",
+    "mysql": "^2.18.1",
+    "socket.io": "^4.2.0"
   }
 }

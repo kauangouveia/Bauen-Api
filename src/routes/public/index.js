@@ -6,7 +6,7 @@ const route = Router();
 route.post("/register/service-provider", ServiceProviderController.create );
 route.post("/register/client", ClientController.create)
 route.post("/login/service-provider", ServiceProviderController.authenticate )
-route.post("/login/client", ClientController.create)
+route.post("/login/client", ClientController.authenticateLoginClient)
 
 
 export default route;

@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --es-module-specifier-resolution=node ./src/index.js",
-  "http.proxySupport": "off"
-
-
+    "http.proxySupport": "off"
   },
   "repository": {
     "type": "git",

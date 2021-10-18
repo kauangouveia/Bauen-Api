@@ -2,8 +2,17 @@ import { bauen } from "../../config/database/connection";
 
 class ServiceProviderRepository {
   async create(serviceProvider) {
-    await bauen("tb_service_provider").insert(serviceProvider);
+    return await bauen("tb_service_provider").insert({
+      phone: serviceProvider.phone,
+      name: serviceProvider.name,
+      rg: serviceProvider.rg,
+      cpf: serviceProvider.cpf,
+      password: serviceProvider.password,
+      email: serviceProvider.email,
+      born: serviceProvider.born,
+    });
   }
+
   async findByEmailAndPassword(email, password) {
     const user = await bauen("tb_service_provider")
       .select("profile_photo", "id_service_provider")

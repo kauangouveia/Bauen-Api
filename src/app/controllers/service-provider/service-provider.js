@@ -9,6 +9,13 @@ class ServiceProviderController {
       message: "Prestador de serviço cadastrado com sucesso",
     });
   }
+
+
+
+
+
+
+  
   async authenticate(req, res) {
     const { email, password } = req.body;
     const serviceProvider = await serviceProviderRepository.findByEmailAndPassword(

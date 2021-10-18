@@ -15,7 +15,7 @@ class ServiceProviderRepository {
 
   async findByEmailAndPassword(email, password) {
     const user = await bauen("tb_service_provider")
-      .select("profile_photo", "id_service_provider")
+      .select("id_service_provider")
       .where("email", email)
       .andWhere("password", password)
       .first();

@@ -13,13 +13,13 @@ class ClientRepository {
     });
   }
   async findByEmailAndPassword(email, password) {
-    const user = await bauen("tb_client")
-      .select("id_client")
-      .where("email", email)
-      .andWhere("password", password)
-      .first();
-
-    return user;
+    return await bauen("tb_client AS client")
+      .join("tb_address AS address", "client.id_client", "address.id_client")
+      .select({ name: "client.name", city: "client.city" })
+      .where("client.email", email)
+      .andWhere("client.password", password)
+      .first()
+      .options({ nestTables: true });
   }
 }
 

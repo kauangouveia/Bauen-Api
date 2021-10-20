@@ -14,12 +14,17 @@ class ServiceProviderRepository {
   }
 
   async findByEmailAndPassword(email, password) {
-    const user = await bauen("tb_service_provider")
-    .select("id_service_provider", "name")
-      .where("email", email)
-      .andWhere("password", password)
-      .first();
-    return user;
+    return await bauen("tb_service_provider AS serviceProvider")
+      .join(
+        "tb_address AS address",
+        "serviceProvider.id_service_provider",
+        "address.id_service_provider"
+      )
+      .select({ name: "serviceProvider.name", city: "address.city" })
+      .where("serviceProvider.email", email)
+      .andWhere("serviceProvider.password", password)
+      .first()
+      .options({ nestTables: true });
   }
 }
 

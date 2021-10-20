@@ -17,8 +17,12 @@ class ServiceProviderController {
 
   async authenticate(req, res) {
     const { email, password } = req.body;
+
     const serviceProvider =
       await serviceProviderRepository.findByEmailAndPassword(email, password);
+
+    console.log(serviceProvider);
+
     if (!serviceProvider) {
       badRequestWithErrors(res, "usuário não encontrado", [
         {
@@ -27,7 +31,9 @@ class ServiceProviderController {
         },
       ]);
     }
+
     const token = generateToken(serviceProvider.id_service_provider);
+
     return res.json({ user: serviceProvider, token });
   }
 }

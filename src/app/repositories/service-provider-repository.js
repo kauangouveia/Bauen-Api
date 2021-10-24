@@ -10,6 +10,7 @@ class ServiceProviderRepository {
       password: serviceProvider.password,
       email: serviceProvider.email,
       born: serviceProvider.born,
+      room: serviceProvider.room
     });
   }
 
@@ -20,7 +21,7 @@ class ServiceProviderRepository {
         "serviceProvider.id_service_provider",
         "address.id_service_provider"
       )
-      .select({ name: "serviceProvider.name", city: "address.city" })
+      .select({ name: "serviceProvider.name", city: "address.city", room:"serviceProvider.room" })
       .where("serviceProvider.email", email)
       .andWhere("serviceProvider.password", password)
       .first()

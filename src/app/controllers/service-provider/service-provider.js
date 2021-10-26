@@ -1,4 +1,4 @@
-import { badRequestWithErrors } from "../../../utils/response";
+import { badRequestWithErrors, notFound } from "../../../utils/response";
 import { generateToken } from "../../../utils/token";
 import serviceProviderRepository from "../../repositories/service-provider-repository";
 import addressRepositoryProvaider from "../../repositories/address-repository-provaider";
@@ -35,6 +35,11 @@ class ServiceProviderController {
     const token = generateToken(serviceProvider.id_service_provider);
 
     return res.json({ user: serviceProvider, token });
+  }
+  async listServiceProvider(req, res) {
+    const serviceProviders = await serviceProviderRepository.findAll();
+    if (serviceProviders.length === 0 ) return notFound(res, "Nenhum prestador de serviços foi encontrado");
+    return res.json({serviceProviders});
   }
 }
 

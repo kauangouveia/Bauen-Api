@@ -23,6 +23,9 @@ export function badRequestWithErrors(res, message, errors) {
   return res.status(400).json(apiResponse({ message, errors }));
 }
 
+export function notFound(res, message) {
+  return res.status(404).json(apiResponse({ message }));
+}
 // export const created = (res, payload = {}) =>
 //   res.status(201).json(
 //     apiResponse({
@@ -49,9 +52,6 @@ export function badRequestWithErrors(res, message, errors) {
 //   return res.status(400).json(apiResponse({ res, message, errors }));
 // };
 
-// export function notFound(res, message) {
-//   return res.status(404).json(apiResponse({ message }));
-// }
 
 // export const internalServerError = (res, error) => {
 //   loggerError(error);

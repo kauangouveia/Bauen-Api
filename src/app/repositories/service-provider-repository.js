@@ -27,6 +27,10 @@ class ServiceProviderRepository {
       .first()
       .options({ nestTables: true });
   }
+
+  findAll(){
+    return bauen("tb_service_provider AS serviceProvider").select("*").whereNull("finished_at")
+  }
 }
 
 export default new ServiceProviderRepository();

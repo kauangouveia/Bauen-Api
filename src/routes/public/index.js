@@ -8,5 +8,5 @@ route.post("/register/client", ClientController.create)
 route.post("/login/service-provider", ServiceProviderController.authenticate )
 route.post("/login/client", ClientController.authenticateLoginClient)
 route.get("/service-provider",  ServiceProviderController.listServiceProvider)
-
+route.get("/service",  ServiceProviderController.listService)
 export default route;

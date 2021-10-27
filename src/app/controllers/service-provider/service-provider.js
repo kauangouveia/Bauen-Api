@@ -36,10 +36,17 @@ class ServiceProviderController {
 
     return res.json({ user: serviceProvider, token });
   }
+  
+
   async listServiceProvider(req, res) {
     const serviceProviders = await serviceProviderRepository.findAll();
     if (serviceProviders.length === 0 ) return notFound(res, "Nenhum prestador de serviços foi encontrado");
     return res.json({serviceProviders});
+  }
+
+  async listService(req ,res){
+    const services = await serviceProviderRepository.findAllServices()
+    return res.json({services});
   }
 }
 

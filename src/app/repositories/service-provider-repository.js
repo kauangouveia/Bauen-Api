@@ -31,6 +31,9 @@ class ServiceProviderRepository {
   findAll(){
     return bauen("tb_service_provider AS serviceProvider").select("*").whereNull("finished_at")
   }
+  findAllServices(){
+    return bauen("tb_service AS service").select("name", "id_service").whereNull("finished_at")
+  }
 }
 
 export default new ServiceProviderRepository();

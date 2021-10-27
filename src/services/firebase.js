@@ -19,7 +19,7 @@ const uploadImage = (req, res, next) => {
 
     const file = bucket.file(nameFile);
 
-    const stream = file.creatWriteStream({
+    const stream = file.createWriteStream({
         metadata :{
             contentType: imagem.mimetype,
         },

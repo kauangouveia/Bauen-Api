@@ -10,7 +10,7 @@ class ServiceProviderRepository {
       password: serviceProvider.password,
       email: serviceProvider.email,
       born: serviceProvider.born,
-      room: serviceProvider.room
+      room: serviceProvider.room,
     });
   }
 
@@ -21,18 +21,41 @@ class ServiceProviderRepository {
         "serviceProvider.id_service_provider",
         "address.id_service_provider"
       )
-      .select({ name: "serviceProvider.name", city: "address.city", room:"serviceProvider.room" })
+      .select({
+        name: "serviceProvider.name",
+        city: "address.city",
+        room: "serviceProvider.room",
+        id : "serviceProvider.id_service_provider"
+      })
       .where("serviceProvider.email", email)
       .andWhere("serviceProvider.password", password)
       .first()
       .options({ nestTables: true });
   }
 
-  findAll(){
-    return bauen("tb_service_provider AS serviceProvider").select("*").whereNull("finished_at")
+  async findUserByPhoto(photo) {
+    return await bauen("tb_service_provider AS serviceProvider")
+      .select({
+        id: 'serviceProvider.id_service_provider'
+      })
+      .where("serviceProvider.photo", photo)  
+      .first()
   }
-  findAllServices(){
-    return bauen("tb_service AS service").select("name", "id_service").whereNull("finished_at")
+
+  findAll() {
+    return bauen("tb_service_provider AS serviceProvider")
+      .select("*")
+      .whereNull("finished_at");
+  }
+  findAllServices() {
+    return bauen("tb_service AS service")
+      .select("name", "id_service")
+      .whereNull("finished_at");
+  }
+  async updatedPhotoProfile(photo, id) {
+    return await bauen("tb_service_provider AS serviceProvider")
+      .update("photo", photo)
+      .where("serviceProvider.id_service_provider", id);
   }
 }
 

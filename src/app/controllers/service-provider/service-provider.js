@@ -48,6 +48,10 @@ class ServiceProviderController {
     const services = await serviceProviderRepository.findAllServices()
     return res.json({services});
   }
+  async sendPhoto(req, res){
+   const photoUser = req.file
+   console.log(photoUser)
+  }
 }
 
 export default new ServiceProviderController();

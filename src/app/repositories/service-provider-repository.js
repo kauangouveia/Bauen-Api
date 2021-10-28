@@ -25,7 +25,7 @@ class ServiceProviderRepository {
         name: "serviceProvider.name",
         city: "address.city",
         room: "serviceProvider.room",
-        id : "serviceProvider.id_service_provider"
+        id: "serviceProvider.id_service_provider",
       })
       .where("serviceProvider.email", email)
       .andWhere("serviceProvider.password", password)
@@ -35,11 +35,9 @@ class ServiceProviderRepository {
 
   async findUserByPhoto(photo) {
     return await bauen("tb_service_provider AS serviceProvider")
-      .select({
-        id: 'serviceProvider.id_service_provider'
-      })
-      .where("serviceProvider.photo", photo)  
-      .first()
+      .select("serviceProvider.id_service_provider")
+      .where("serviceProvider.photo", photo)
+      .first();
   }
 
   findAll() {
@@ -52,6 +50,7 @@ class ServiceProviderRepository {
       .select("name", "id_service")
       .whereNull("finished_at");
   }
+
   async updatedPhotoProfile(photo, id) {
     return await bauen("tb_service_provider AS serviceProvider")
       .update("photo", photo)

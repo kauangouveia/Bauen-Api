@@ -10,19 +10,19 @@ class ServiceProviderController {
       req.body.address,
       provider
     );
+    console.log(provider)
     return res.json({
       message: "Prestador de serviço cadastrado com sucesso",
+      id:provider
     });
   }
 
   async authenticate(req, res) {
     const { email, password } = req.body;
-
     const serviceProvider =
       await serviceProviderRepository.findByEmailAndPassword(email, password);
-
-    // console.log(serviceProvider);
-
+   
+      console.log(req.body)
     if (!serviceProvider) {
       badRequestWithErrors(res, "usuário não encontrado", [
         {
@@ -31,10 +31,14 @@ class ServiceProviderController {
         },
       ]);
     }
+    const token = generateToken(
+      serviceProvider.serviceProvider.id,
+      email,
+      serviceProvider.serviceProvider.room,
+      serviceProvider.address.city
+    );
 
-    const token = generateToken(serviceProvider.room, serviceProvider.city, serviceProvider.id);
-
-    return res.json({ user: serviceProvider, token });
+    return res.json({ user: serviceProvider,token });
   }
 
   async listServiceProvider(req, res) {
@@ -49,15 +53,16 @@ class ServiceProviderController {
     return res.json({ services });
   }
   async sendPhoto(req, res) {
+    
     const photoUser = req.file;
+    const {id} = req.params
+    console.log(id) 
 
-    const auth = await serviceProviderRepository.findUserByPhoto(photoUser.firebaseUrl)
 
-    console.log("mai q carai", auth);
+    const findUser = await serviceProviderRepository.findUserByPhoto(photoUser.firebaseUrl)
+    console.log(findUser)
 
-    // const services = await serviceProviderRepository.updatedPhotoProfile(photoUser.firebaseUrl, 1);
-    // console.log("🚀 ~ file: service-provider.js ~ line 54 ~ ServiceProviderController ~ sendPhoto ~ services", photoUser.firebaseUrl)
-    // return services
+    const services = await serviceProviderRepository.updatedPhotoProfile(photoUser.firebaseUrl, id);
   }
 }
 

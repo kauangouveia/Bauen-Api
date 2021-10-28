@@ -2,6 +2,8 @@ import { badRequestWithErrors, notFound } from "../../../utils/response";
 import { generateToken } from "../../../utils/token";
 import serviceProviderRepository from "../../repositories/service-provider-repository";
 import addressRepositoryProvaider from "../../repositories/address-repository-provaider";
+import jwt from "jsonwebtoken";
+import { TOKEN } from "../../../utils/constants";
 
 class ServiceProviderController {
   async create(req, res) {
@@ -10,10 +12,10 @@ class ServiceProviderController {
       req.body.address,
       provider
     );
-    console.log(provider)
+    console.log(provider);
     return res.json({
       message: "Prestador de serviço cadastrado com sucesso",
-      id:provider
+      id: provider,
     });
   }
 
@@ -21,8 +23,8 @@ class ServiceProviderController {
     const { email, password } = req.body;
     const serviceProvider =
       await serviceProviderRepository.findByEmailAndPassword(email, password);
-   
-      console.log(req.body)
+
+    console.log(req.body);
     if (!serviceProvider) {
       badRequestWithErrors(res, "usuário não encontrado", [
         {
@@ -38,7 +40,7 @@ class ServiceProviderController {
       serviceProvider.address.city
     );
 
-    return res.json({ user: serviceProvider,token });
+    return res.json({ user: serviceProvider, token });
   }
 
   async listServiceProvider(req, res) {
@@ -53,16 +55,24 @@ class ServiceProviderController {
     return res.json({ services });
   }
   async sendPhoto(req, res) {
-    
     const photoUser = req.file;
-    const {id} = req.params
-    console.log(id) 
 
+    const [Bearer, token] = req.headers.authorization.split(" ");
 
-    const findUser = await serviceProviderRepository.findUserByPhoto(photoUser.firebaseUrl)
-    console.log(findUser)
+    const userId = await jwt.verify(token, TOKEN.SECRET);
 
-    const services = await serviceProviderRepository.updatedPhotoProfile(photoUser.firebaseUrl, id);
+    await serviceProviderRepository.updatedPhotoProfile(
+      photoUser.firebaseUrl,
+      userId.id
+    );
+  }
+
+  async sendTypeService(req, res){
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId =  await jwt.verify(token, TOKEN.SECRET);
+    
+    const serviceId = await serviceProviderRepository.findAllServices()
+
   }
 }
 

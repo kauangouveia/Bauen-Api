@@ -56,6 +56,8 @@ class ServiceProviderRepository {
       .update("photo", photo)
       .where("serviceProvider.id_service_provider", id);
   }
+
+  
 }
 
 export default new ServiceProviderRepository();

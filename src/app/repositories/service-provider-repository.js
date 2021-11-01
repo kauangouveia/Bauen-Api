@@ -57,7 +57,11 @@ class ServiceProviderRepository {
       .where("serviceProvider.id_service_provider", id);
   }
 
-  
+  async findInformations(id) {
+    return await bauen("tb_service_provider AS serviceProvider")
+      .select("photo")
+      .where("serviceProvider.id_service_provider", id);
+  }
 }
 
 export default new ServiceProviderRepository();

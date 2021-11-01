@@ -70,9 +70,15 @@ class ServiceProviderController {
   async sendTypeService(req, res){
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId =  await jwt.verify(token, TOKEN.SECRET);
-    
     const serviceId = await serviceProviderRepository.findAllServices()
 
+  }
+
+  async findInformations(req, res){
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId =  await jwt.verify(token, TOKEN.SECRET);
+    const listPhoto = await serviceProviderRepository.findInformations(userId.id)
+    return res.json(listPhoto[0]);
   }
 }
 

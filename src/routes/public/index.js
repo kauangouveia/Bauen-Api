@@ -16,5 +16,5 @@ route.post("/login/client", ClientController.authenticateLoginClient);
 route.get("/service-provider", ServiceProviderController.listServiceProvider);
 route.get("/service", ServiceProviderController.listService);
 route.post("/photo-profile/", Multer.single("photoProfile"),uploadImage,ServiceProviderController.sendPhoto)
-
+route.get("/informations", ServiceProviderController.findInformations )
 export default route;

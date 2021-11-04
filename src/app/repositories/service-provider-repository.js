@@ -81,19 +81,25 @@ class ServiceProviderRepository {
       .where("id_service_provider", idServiceProvider);
   }
 
-  async showServices() {
+  async showServices(idServico) {
     return await bauen("tb_service_provider AS serviceProvider")
       .join(
         "tb_service_provider_service as serviceProviderService",
         "serviceProvider.id_service_provider",
         "serviceProviderService.id_service_provider"
       )
+      .join(
+        "tb_service as service",
+        "service.id_service",
+        "serviceProviderService.id_service"
+      )
       .select({
         name: "serviceProvider.name",
         id_service: "serviceProviderService.id_service",
         id: "serviceProviderService.id_service_provider_service",
-        idPrestador : "serviceProvider.id_service_provider"
-      })
+        idPrestador: "serviceProvider.id_service_provider",
+        nameService: "service.name"
+      }).where("serviceProvider.id_service_provider", idServico)
   }
 }
 

@@ -100,19 +100,19 @@ class ServiceProviderController {
     const check = await serviceProviderRepository.chekingInformations(
       userId.id
     );
-    if(check[0].photo === null) {
-      return res.json({message: "Nao contem foto no perfil"})
-    }else{
-
-      return res.json({message: "Contem foto no perfil"});
+    if (check[0].photo === null) {
+      return res.json({ message: "Nao contem foto no perfil" });
+    } else {
+      return res.json({ message: "Contem foto no perfil" });
     }
   }
 
-  async showServices(req, res){
-      const test = await serviceProviderRepository.showServices()
-      return res.json(test)
+  async showServices(req, res) {
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+    const [findService] = await serviceProviderRepository.showServices(userId.id);
+    return res.json(findService);
   }
-
 }
 
 export default new ServiceProviderController();

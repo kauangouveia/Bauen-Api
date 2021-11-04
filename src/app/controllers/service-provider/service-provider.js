@@ -70,7 +70,16 @@ class ServiceProviderController {
   async sendTypeService(req, res){
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId =  await jwt.verify(token, TOKEN.SECRET);
-    const serviceId = await serviceProviderRepository.findAllServices()
+    const getId = userId.id
+    const { service } = req.body;
+
+    const idService= await serviceProviderRepository.findServiceByName(service)
+
+    const envitService = await serviceProviderRepository.createService(idService[0].id_service, getId)
+
+    
+    return res.json({message : "Serviço cadastrado com sucesso"})
+
 
   }
 
@@ -80,6 +89,13 @@ class ServiceProviderController {
     const listPhoto = await serviceProviderRepository.findInformations(userId.id)
     return res.json(listPhoto[0]);
   }
+
+  // async test(req, res) {
+  //   // const [Bearer, token] = req.headers.authorization.split(" ");
+  //   // const userId =  await jwt.verify(token, TOKEN.SECRET);
+  //   const testando = await serviceProviderRepository.chekingInformations();
+  //   return res.json(testando)
+  // }
 }
 
 export default new ServiceProviderController();

@@ -45,6 +45,7 @@ class ServiceProviderRepository {
       .select("*")
       .whereNull("finished_at");
   }
+
   findAllServices() {
     return bauen("tb_service AS service")
       .select("name", "id_service")
@@ -61,6 +62,25 @@ class ServiceProviderRepository {
     return await bauen("tb_service_provider AS serviceProvider")
       .select("photo")
       .where("serviceProvider.id_service_provider", id);
+  }
+  async findServiceByName(nameServices) {
+    return await bauen("tb_service AS service")
+      .select("id_service")
+      .where("name", nameServices);
+  }
+  async createService(idService, idServiceprovider) {
+    return await bauen("tb_service_provider_service").insert({
+      id_service: idService,
+      id_service_provider: idServiceprovider,
+    });
+  }
+
+  async chekingInformations() {
+    return await bauen("tb_service_provider_service").join(
+      "tb_service",
+      "tb_service_provider_service",
+      "tb_service.id_service"
+    ).select({name: "tb_service.name"})
   }
 }
 

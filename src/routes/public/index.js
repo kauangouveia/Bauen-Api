@@ -18,5 +18,8 @@ route.get("/service", ServiceProviderController.listService);
 route.post("/photo-profile/", Multer.single("photoProfile"),uploadImage,ServiceProviderController.sendPhoto)
 route.get("/informations", ServiceProviderController.findInformations )
 route.post("/sendService",ServiceProviderController.sendTypeService)
-// route.get("/chekingInformations", ServiceProviderController.test)
+route.get("/chekingInformations", ServiceProviderController.checkInformations)
+route.get("/servicesTypes", ServiceProviderController.showServices)
+
+
 export default route;

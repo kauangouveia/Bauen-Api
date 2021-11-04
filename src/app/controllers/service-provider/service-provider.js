@@ -67,35 +67,52 @@ class ServiceProviderController {
     );
   }
 
-  async sendTypeService(req, res){
+  async sendTypeService(req, res) {
     const [Bearer, token] = req.headers.authorization.split(" ");
-    const userId =  await jwt.verify(token, TOKEN.SECRET);
-    const getId = userId.id
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+    const getId = userId.id;
     const { service } = req.body;
 
-    const idService= await serviceProviderRepository.findServiceByName(service)
+    const idService = await serviceProviderRepository.findServiceByName(
+      service
+    );
 
-    const envitService = await serviceProviderRepository.createService(idService[0].id_service, getId)
+    const envitService = await serviceProviderRepository.createService(
+      idService[0].id_service,
+      getId
+    );
 
-    
-    return res.json({message : "Serviço cadastrado com sucesso"})
-
-
+    return res.json({ message: "Serviço cadastrado com sucesso" });
   }
 
-  async findInformations(req, res){
+  async findInformations(req, res) {
     const [Bearer, token] = req.headers.authorization.split(" ");
-    const userId =  await jwt.verify(token, TOKEN.SECRET);
-    const listPhoto = await serviceProviderRepository.findInformations(userId.id)
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+    const listPhoto = await serviceProviderRepository.findInformations(
+      userId.id
+    );
     return res.json(listPhoto[0]);
   }
 
-  // async test(req, res) {
-  //   // const [Bearer, token] = req.headers.authorization.split(" ");
-  //   // const userId =  await jwt.verify(token, TOKEN.SECRET);
-  //   const testando = await serviceProviderRepository.chekingInformations();
-  //   return res.json(testando)
-  // }
+  async checkInformations(req, res) {
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+    const check = await serviceProviderRepository.chekingInformations(
+      userId.id
+    );
+    if(check[0].photo === null) {
+      return res.json({message: "Nao contem foto no perfil"})
+    }else{
+
+      return res.json({message: "Contem foto no perfil"});
+    }
+  }
+
+  async showServices(req, res){
+      const test = await serviceProviderRepository.showServices()
+      return res.json(test)
+  }
+
 }
 
 export default new ServiceProviderController();

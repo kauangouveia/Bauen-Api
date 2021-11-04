@@ -75,12 +75,25 @@ class ServiceProviderRepository {
     });
   }
 
-  async chekingInformations() {
-    return await bauen("tb_service_provider_service").join(
-      "tb_service",
-      "tb_service_provider_service",
-      "tb_service.id_service"
-    ).select({name: "tb_service.name"})
+  async chekingInformations(idServiceProvider) {
+    return await bauen("tb_service_provider AS serviceProvider")
+      .select("photo")
+      .where("id_service_provider", idServiceProvider);
+  }
+
+  async showServices() {
+    return await bauen("tb_service_provider AS serviceProvider")
+      .join(
+        "tb_service_provider_service as serviceProviderService",
+        "serviceProvider.id_service_provider",
+        "serviceProviderService.id_service_provider"
+      )
+      .select({
+        name: "serviceProvider.name",
+        id_service: "serviceProviderService.id_service",
+        id: "serviceProviderService.id_service_provider_service",
+        idPrestador : "serviceProvider.id_service_provider"
+      })
   }
 }
 

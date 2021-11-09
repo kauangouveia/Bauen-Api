@@ -15,12 +15,10 @@ route.post("/login/client", ClientController.authenticateLoginClient);
 route.post("/login/service-provider", ServiceProviderController.authenticate);
 route.post("/register/client", ClientController.create);
 route.post("/register/service-provider", ServiceProviderController.create);
-
-
+route.get("/service", ServiceProviderController.listService);
 
 route.use(authorization)
 route.get("/service-provider", ServiceProviderController.listServiceProvider);
-route.get("/service", ServiceProviderController.listService);
 route.post("/photo-profile/", Multer.single("photoProfile"),uploadImage,ServiceProviderController.sendPhoto)
 route.get("/informations", ServiceProviderController.findInformations )
 route.post("/sendService",ServiceProviderController.sendTypeService)

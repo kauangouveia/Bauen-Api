@@ -31,6 +31,19 @@ class ClientController {
     const token = generateToken(client.id_client);
     return res.json({ user: client, token });
   }
+
+  async fastService(req, res) {
+    const photoUser = req.file;
+
+    // const [Bearer, token] = req.headers.authorization.split(" ");
+
+    // const userId = await jwt.verify(token, TOKEN.SECRET);
+
+    await clientRepository.sendFastService(
+      photoUser.firebaseUrl
+    );
+  }
+
 }
 
 export default new ClientController();

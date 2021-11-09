@@ -27,6 +27,11 @@ class ClientRepository {
       .first()
       .options({ nestTables: true });
   }
+
+  async sendFastService(photo) {
+    return await bauen("tb_client AS client")
+      .insert({photo: photo.client})
+  }
 }
 
 export default new ClientRepository();

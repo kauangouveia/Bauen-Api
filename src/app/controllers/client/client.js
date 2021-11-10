@@ -4,7 +4,6 @@ import { badRequestWithErrors } from "../../../utils/response";
 import { generateToken } from "../../../utils/token";
 
 class ClientController {
-
   async create(req, res) {
     const [client] = await clientRepository.create(req.body);
     const address = await addressRepository.create(req.body.address, client);
@@ -33,17 +32,19 @@ class ClientController {
   }
 
   async fastService(req, res) {
-    const photoUser = req.file;
-
-    // const [Bearer, token] = req.headers.authorization.split(" ");
-
-    // const userId = await jwt.verify(token, TOKEN.SECRET);
+    const fastService = req.file;
+    const {title} = req.body;
+    
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId = await jwt.verify(token, TOKEN.SECRET);
 
     await clientRepository.sendFastService(
-      photoUser.firebaseUrl
+      fastService.firebaseUrl,
+      title
     );
+    
+    return res.json({ photo: fastService.firebaseUrl, title});
   }
-
 }
 
 export default new ClientController();

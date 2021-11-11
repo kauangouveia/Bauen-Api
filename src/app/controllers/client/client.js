@@ -2,6 +2,8 @@ import addressRepository from "../../repositories/address-repository";
 import clientRepository from "../../repositories/client-repository";
 import { badRequestWithErrors } from "../../../utils/response";
 import { generateToken } from "../../../utils/token";
+import jwt from "jsonwebtoken";
+import { TOKEN } from "../../../utils/constants";
 
 class ClientController {
   async create(req, res) {
@@ -14,7 +16,7 @@ class ClientController {
 
   async authenticateLoginClient(req, res) {
     const { email, password } = req.body;
-    const client = await clientRepository.findByEmailAndPassword(
+    const { client } = await clientRepository.findByEmailAndPassword(
       email,
       password
     );
@@ -27,23 +29,34 @@ class ClientController {
       ]);
     }
 
-    const token = generateToken(client.id_client);
-    return res.json({ user: client, token });
+    const token = generateToken(client.id, client.email, client.room,client.name);
+    return res.json({ client, token });
   }
 
   async fastService(req, res) {
     const fastService = req.file;
-    const {title} = req.body;
-    
+
+    const { title, TypeOfService } = req.body;
+
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId = await jwt.verify(token, TOKEN.SECRET);
 
-    await clientRepository.sendFastService(
+    const idFastServiceCreate = await clientRepository.sendFastService(
       fastService.firebaseUrl,
-      title
+      title,
     );
-    
-    return res.json({ photo: fastService.firebaseUrl, title});
+// Cadastrar o tipo de serviço
+    await clientRepository.sendServicesFastTableIntermediary(
+      idFastServiceCreate,
+      userId.id
+    );
+
+    return res.json({ photo: fastService.firebaseUrl, title, });
+  }
+
+  async listFastServices(req, res) {
+    const listServices = await clientRepository.showServices();
+    return res.json(listServices);
   }
 }
 

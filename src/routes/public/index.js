@@ -22,6 +22,7 @@ route.post(
   uploadImage,
   ClientController.fastService
 );
+route.get("/listFastServices", ClientController.listFastServices)
 // route.use(authorization);
 route.get("/service-provider", ServiceProviderController.listServiceProvider);
 route.post(
@@ -32,7 +33,7 @@ route.post(
 );
 route.get("/informations", ServiceProviderController.findInformations);
 route.post("/sendService", ServiceProviderController.sendTypeService);
-route.get("/chekingInformations", ServiceProviderController.checkInformations);
-route.get("/servicesTypes", ServiceProviderController.showServices);
+// route.post("/SendFastService", ClientController.);
 
+route.get("/chekingInformations", ServiceProviderController.checkInformations);
 export default route;

@@ -29,29 +29,36 @@ class ClientController {
       ]);
     }
 
-    const token = generateToken(client.id, client.email, client.room,client.name);
+    const token = generateToken(
+      client.id,
+      client.email,
+      client.room,
+      client.name
+    );
     return res.json({ client, token });
   }
 
   async fastService(req, res) {
     const fastService = req.file;
-
     const { title, TypeOfService } = req.body;
-
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId = await jwt.verify(token, TOKEN.SECRET);
+    const [choiceTypeOfService] = await clientRepository.choiceTypeOfService(
+      TypeOfService
+    );
 
-    const idFastServiceCreate = await clientRepository.sendFastService(
+    const FindIdAndCreateFastService = await clientRepository.sendFastService(
       fastService.firebaseUrl,
       title,
+      choiceTypeOfService.name
     );
-// Cadastrar o tipo de serviço
+
     await clientRepository.sendServicesFastTableIntermediary(
-      idFastServiceCreate,
+      FindIdAndCreateFastService,
       userId.id
     );
 
-    return res.json({ photo: fastService.firebaseUrl, title, });
+    return res.json({ photo: fastService.firebaseUrl, title, TypeOfService });
   }
 
   async listFastServices(req, res) {

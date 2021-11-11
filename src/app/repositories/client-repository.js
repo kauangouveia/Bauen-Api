@@ -29,12 +29,18 @@ class ClientRepository {
       .options({ nestTables: true });
   }
 
-  async sendFastService(Urlphoto, titleService,TypeOfService) {
+  async choiceTypeOfService(typeService) {
+    return await bauen("tb_service")
+      .select("name", "id_service")
+      .where("name", typeService);
+  }
+
+  async sendFastService(Urlphoto, titleService, TypeOfService) {
     return await bauen("tb_fast_services")
       .insert({
         photo: Urlphoto,
         title: titleService,
-        typeService: TypeOfService
+        typeService: TypeOfService,
       })
       .select("id_fast_service");
   }
@@ -62,7 +68,10 @@ class ClientRepository {
         name: "client.name",
         id: "client.id_client",
         idServiceFast: "clientFastServices.id_fast_service",
-        title: "fastService.title"
+        title: "fastService.title",
+        typeService: "fastService.typeService",
+        photoClient :"client.photo",
+        photoService : "fastService.photo"
       });
   }
 }

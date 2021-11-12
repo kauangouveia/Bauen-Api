@@ -70,9 +70,14 @@ class ClientRepository {
         idServiceFast: "clientFastServices.id_fast_service",
         title: "fastService.title",
         typeService: "fastService.typeService",
-        photoClient :"client.photo",
-        photoService : "fastService.photo"
+        photoClient: "client.photo",
+        photoService: "fastService.photo",
       });
+  }
+  async getPhoto(idClient) {
+    return await bauen("tb_client")
+      .select("photo","name")
+      .where("id_client", idClient);
   }
 }
 

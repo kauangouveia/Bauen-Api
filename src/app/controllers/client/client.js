@@ -65,6 +65,13 @@ class ClientController {
     const listServices = await clientRepository.showServices();
     return res.json(listServices);
   }
+
+  async gettinhPhoto(req, res){
+    const [Bearer, token] = req.headers.authorization.split(" ");
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+    const [photo] = await clientRepository.getPhoto(userId.id)
+    return res.json(photo)
+  }
 }
 
 export default new ClientController();

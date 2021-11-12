@@ -38,6 +38,19 @@ class ClientController {
     return res.json({ client, token });
   }
 
+  async sendPhotoClient(req, res) {
+    const photoUser = req.file;
+
+    const [Bearer, token] = req.headers.authorization.split(" ");
+
+    const userId = await jwt.verify(token, TOKEN.SECRET);
+
+    await clientRepository.updatedPhotoProfileClient(
+      photoUser.firebaseUrl,
+      userId.id
+    );
+  }
+
   async fastService(req, res) {
     const fastService = req.file;
     const { title, TypeOfService } = req.body;
@@ -66,11 +79,13 @@ class ClientController {
     return res.json(listServices);
   }
 
-  async gettinhPhoto(req, res){
+  async gettinhPhoto(req, res) {
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId = await jwt.verify(token, TOKEN.SECRET);
-    const [photo] = await clientRepository.getPhoto(userId.id)
-    return res.json(photo)
+    const [photo] = await clientRepository.getPhoto(userId.id);
+    if (photo.photo == null) {
+      return res.json({ message: "Nao contem foto no perfil" });
+    } else return res.json(photo);
   }
 }
 

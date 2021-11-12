@@ -23,17 +23,23 @@ route.post(
   ClientController.fastService
 );
 
-
-
-route.get("/listFastServices", ClientController.listFastServices)
-// route.use(authorization);
-route.get("/service-provider", ServiceProviderController.listServiceProvider);
 route.post(
   "/photo-profile/",
   Multer.single("photoProfile"),
   uploadImage,
   ServiceProviderController.sendPhoto
 );
+route.post(
+  "/photo-profile-client/",
+  Multer.single("photoProfileClient"),
+  uploadImage,
+  ClientController.sendPhotoClient
+);
+
+
+route.get("/listFastServices", ClientController.listFastServices)
+// route.use(authorization);
+route.get("/service-provider", ServiceProviderController.listServiceProvider);
 route.get("/informations", ServiceProviderController.findInformations);
 route.post("/sendService", ServiceProviderController.sendTypeService);
 // route.post("/SendFastService", ClientController.);

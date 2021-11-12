@@ -74,6 +74,15 @@ class ClientRepository {
         photoService: "fastService.photo",
       });
   }
+
+  async updatedPhotoProfileClient(photo, id) {
+    return await bauen("tb_client AS client")
+      .update("photo", photo)
+      .where("client.id_client", id);
+  }
+
+
+
   async getPhoto(idClient) {
     return await bauen("tb_client")
       .select("photo","name")

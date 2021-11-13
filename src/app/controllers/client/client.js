@@ -16,11 +16,11 @@ class ClientController {
 
   async authenticateLoginClient(req, res) {
     const { email, password } = req.body;
-    const { client } = await clientRepository.findByEmailAndPassword(
+    const  client  = await clientRepository.findByEmailAndPassword(
       email,
       password
     );
-    if (!client) {
+    if (!client) {  
       badRequestWithErrors(res, "usuário não encontrado", [
         {
           param: "email/password",
@@ -30,10 +30,10 @@ class ClientController {
     }
 
     const token = generateToken(
-      client.id,
-      client.email,
-      client.room,
-      client.name
+      client.client.id,
+      client.client.email,
+      client.client.room,
+      client.client.name
     );
     return res.json({ client, token });
   }
@@ -63,7 +63,7 @@ class ClientController {
     const FindIdAndCreateFastService = await clientRepository.sendFastService(
       fastService.firebaseUrl,
       title,
-      choiceTypeOfService.name
+      choiceTypeOfService.nameService
     );
 
     await clientRepository.sendServicesFastTableIntermediary(

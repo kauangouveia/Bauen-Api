@@ -10,7 +10,7 @@ const Multer = multer({
 });
 const route = Router();
 
-route.post("/login/client", ClientController.authenticateLoginClient);
+route.post("/login-client", ClientController.authenticateLoginClient);
 route.post("/login/service-provider", ServiceProviderController.authenticate);
 route.post("/register/client", ClientController.create);
 route.post("/register/service-provider", ServiceProviderController.create);
@@ -35,7 +35,7 @@ route.post(
   uploadImage,
   ClientController.sendPhotoClient
 );
-
+route.get("/servicesTypes", ServiceProviderController.showServices)
 
 route.get("/listFastServices", ClientController.listFastServices)
 // route.use(authorization);

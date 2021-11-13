@@ -31,8 +31,8 @@ class ClientRepository {
 
   async choiceTypeOfService(typeService) {
     return await bauen("tb_service")
-      .select("name", "id_service")
-      .where("name", typeService);
+      .select("nameService", "id_service")
+      .where("nameService", typeService);
   }
 
   async sendFastService(Urlphoto, titleService, TypeOfService) {
@@ -68,6 +68,7 @@ class ClientRepository {
         name: "client.name",
         id: "client.id_client",
         idServiceFast: "clientFastServices.id_fast_service",
+        idTableIntermediary :"clientFastServices.id_client_fast_services",
         title: "fastService.title",
         typeService: "fastService.typeService",
         photoClient: "client.photo",

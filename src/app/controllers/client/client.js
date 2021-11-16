@@ -87,6 +87,10 @@ class ClientController {
       return res.json({ message: "Nao contem foto no perfil" });
     } else return res.json(photo);
   }
+  async findProfile(req, res) {
+    const provider = await clientRepository.findServiceProvider("2")
+    return res.json(provider)
+  }
 }
 
 export default new ClientController();

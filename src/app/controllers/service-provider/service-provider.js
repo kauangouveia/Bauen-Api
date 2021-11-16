@@ -12,7 +12,6 @@ class ServiceProviderController {
       req.body.address,
       provider
     );
-    console.log(provider);
     return res.json({
       message: "Prestador de serviço cadastrado com sucesso",
       id: provider,

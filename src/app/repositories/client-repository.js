@@ -68,7 +68,7 @@ class ClientRepository {
         name: "client.name",
         id: "client.id_client",
         idServiceFast: "clientFastServices.id_fast_service",
-        idTableIntermediary :"clientFastServices.id_client_fast_services",
+        idTableIntermediary: "clientFastServices.id_client_fast_services",
         title: "fastService.title",
         typeService: "fastService.typeService",
         photoClient: "client.photo",
@@ -82,12 +82,38 @@ class ClientRepository {
       .where("client.id_client", id);
   }
 
-
-
   async getPhoto(idClient) {
     return await bauen("tb_client")
-      .select("photo","name")
+      .select("photo", "name")
       .where("id_client", idClient);
+  }
+  async findServiceProvider(nameProvider) {
+    return await bauen("tb_service_provider as provider")
+      .join(
+        "tb_address as address",
+        "address.id_service_provider",
+        "provider.id_service_provider"
+      )
+      .join(
+        "tb_service_provider_service as serviceProviderService",
+        "provider.id_service_provider",
+        "serviceProviderService.id_service_provider"
+      )
+      .join(
+        "tb_service as service",
+        "service.id_service",
+        "serviceProviderService.id_service"
+      )
+      .select(
+        "name",
+        "photo",
+        "city",
+        "provider.id_service_provider",
+        "serviceProviderService.id_service_provider_service", 
+        "nameService",
+        "service.id_service"
+      )
+      .where("provider.id_service_provider", nameProvider);
   }
 }
 

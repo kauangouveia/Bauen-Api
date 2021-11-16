@@ -16,11 +16,11 @@ class ClientController {
 
   async authenticateLoginClient(req, res) {
     const { email, password } = req.body;
-    const  client  = await clientRepository.findByEmailAndPassword(
+    const client = await clientRepository.findByEmailAndPassword(
       email,
       password
     );
-    if (!client) {  
+    if (!client) {
       badRequestWithErrors(res, "usuário não encontrado", [
         {
           param: "email/password",
@@ -88,8 +88,9 @@ class ClientController {
     } else return res.json(photo);
   }
   async findProfile(req, res) {
-    const provider = await clientRepository.findServiceProvider("2")
-    return res.json(provider)
+    console.log(req.params.id)
+    const [provider] = await clientRepository.findServiceProvider(req.params.id);
+    return res.json(provider);
   }
 }
 

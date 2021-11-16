@@ -38,7 +38,7 @@ route.post(
 route.get("/servicesTypes", ServiceProviderController.showServices)
 
 route.get("/listFastServices", ClientController.listFastServices)
-route.get("/findProfile", ClientController.findProfile)  
+route.get("/findProfile/:id", ClientController.findProfile)  
 // route.use(authorization);
 route.get("/service-provider", ServiceProviderController.listServiceProvider);
 route.get("/informations", ServiceProviderController.findInformations);

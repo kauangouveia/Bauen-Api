@@ -98,7 +98,7 @@ class ServiceProviderRepository {
         "serviceProviderService.id_service_provider"
       )
       .join(
-        "id_service_provider",
+        "tb_service as service",
         "service.id_service",
         "serviceProviderService.id_service"
       )

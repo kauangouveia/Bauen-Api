@@ -63,7 +63,7 @@ class ServiceProviderController {
     await serviceProviderRepository.updatedPhotoProfile(
       photoUser.firebaseUrl,
       userId.id
-    );  
+    );
   }
 
   async sendTypeService(req, res) {
@@ -109,8 +109,16 @@ class ServiceProviderController {
   async showServices(req, res) {
     const [Bearer, token] = req.headers.authorization.split(" ");
     const userId = await jwt.verify(token, TOKEN.SECRET);
-    const [findService] = await serviceProviderRepository.showServices(userId.id);
+    const [findService] = await serviceProviderRepository.showServices(
+      userId.id
+    );
     return res.json(findService);
+  }
+
+  async acceptFastServices(req, res) {
+
+    const services = await serviceProviderRepository.pendingservices(req.body);
+    return res.json(services);
   }
 }
 

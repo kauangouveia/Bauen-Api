@@ -111,6 +111,20 @@ class ServiceProviderRepository {
       })
       .where("serviceProvider.id_service_provider", idServico);
   }
+
+  async pendingservices(
+    idClientFastServices,
+    idServiceProvider,
+    nameClient,
+    titleOfProjecttitleOfProject
+  ) {
+    return await bauen("tb_pending_services").insert({
+      id_client_fast_services: idClientFastServices,
+      id_service_provider: idServiceProvider,
+      nameClient: nameClient,
+      titleOfProject: titleOfProjecttitleOfProject,
+    });
+  }
 }
 
 export default new ServiceProviderRepository();

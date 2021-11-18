@@ -115,15 +115,23 @@ class ServiceProviderRepository {
   async pendingservices(
     idClientFastServices,
     idServiceProvider,
-    nameClient,
-    titleOfProjecttitleOfProject
+    client,
+    project,
+    photoService
   ) {
     return await bauen("tb_pending_services").insert({
       id_client_fast_services: idClientFastServices,
       id_service_provider: idServiceProvider,
-      nameClient: nameClient,
-      titleOfProject: titleOfProjecttitleOfProject,
+      nameClient: client,
+      titleOfProject: project,
+      photo: photoService,
     });
+  }
+
+  async listPendingServices(idServiceProvider) {
+    return await bauen("tb_pending_services")
+      .select("nameClient", "titleOfProject")
+      .where("id_service_provider", idServiceProvider);
   }
 }
 

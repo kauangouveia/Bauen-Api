@@ -112,25 +112,19 @@ class ServiceProviderRepository {
       .where("serviceProvider.id_service_provider", idServico);
   }
 
-  async pendingservices(
-    idClientFastServices,
-    idServiceProvider,
-    client,
-    project,
-    photoService
-  ) {
+  async pendingservices(pedingService) {
     return await bauen("tb_pending_services").insert({
-      id_client_fast_services: idClientFastServices,
-      id_service_provider: idServiceProvider,
-      nameClient: client,
-      titleOfProject: project,
-      photo: photoService,
+      id_client_fast_services: pedingService.idTableIntermediary,
+      id_service_provider: pedingService.idServiceProvider,
+      nameClient: pedingService.nameClient,
+      title_of_project: pedingService.titleProject,
+      photo: pedingService.photo,
     });
   }
 
   async listPendingServices(idServiceProvider) {
     return await bauen("tb_pending_services")
-      .select("nameClient", "titleOfProject")
+      .select("nameClient", "title_of_project", "photo")
       .where("id_service_provider", idServiceProvider);
   }
 }

@@ -115,6 +115,7 @@ class ServiceProviderRepository {
   async pendingservices(pedingService) {
     return await bauen("tb_pending_services").insert({
       id_client_fast_services: pedingService.idTableIntermediary,
+      id_client: pedingService.idClient,
       id_service_provider: pedingService.idServiceProvider,
       nameClient: pedingService.nameClient,
       title_of_project: pedingService.titleProject,
@@ -126,6 +127,12 @@ class ServiceProviderRepository {
     return await bauen("tb_pending_services")
       .select("nameClient", "title_of_project", "photo")
       .where("id_service_provider", idServiceProvider);
+  }
+
+  async sendNotifications(notifications) {
+    return await bauen("tb_pending_services").insert({
+      finished_at: notifications,
+    })
   }
 }
 

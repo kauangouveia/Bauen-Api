@@ -126,9 +126,16 @@ class ServiceProviderController {
     }
   }
   async listAcceptServices(req, res) {
-    console.log(req.params.id)
     const services = await serviceProviderRepository.listPendingServices(req.params.id);
     return res.json(services);
+  }
+
+  async notifications(req, res){
+    const date = new Date();
+    const dateNow = date.getFullYear
+    const now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    const concludeService = await serviceProviderRepository.sendNotifications( dateNow,now)
+    return res.json(concludeService);
   }
 }
 

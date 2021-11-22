@@ -31,9 +31,9 @@ class ClientController {
 
     const token = generateToken(
       client.client.id,
-      client.client.email,
       client.client.room,
-      client.client.name
+      client.client.name,
+      client.address.city
     );
     return res.json({ client, token });
   }

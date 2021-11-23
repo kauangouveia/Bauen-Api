@@ -32,14 +32,16 @@ class ServiceProviderController {
         },
       ]);
     }
+    const provider = 'provider'
     const token = generateToken(
       serviceProvider.serviceProvider.id,
       email,
       serviceProvider.serviceProvider.room,
-      serviceProvider.address.city
+      serviceProvider.address.city,
+      provider
     );
 
-    return res.json({ user: serviceProvider, token });
+    return res.json({ user: serviceProvider, provider,   token });
   }
 
   async listServiceProvider(req, res) {

@@ -1,8 +1,8 @@
 import  jwt  from "jsonwebtoken";
 import {TOKEN} from './constants'
 
-export const generateToken = (id, email, room, city) => {
-  return jwt.sign({id, email, room,city}, TOKEN.SECRET, {
+export const generateToken = (id, email, room, city, type) => {
+  return jwt.sign({id, email, room, city, type}, TOKEN.SECRET, {
     expiresIn: "864000000",
   });
 };

@@ -28,14 +28,15 @@ class ClientController {
         },
       ]);
     }
-
+    const clientType = "client";
     const token = generateToken(
       client.client.id,
       client.client.room,
       client.client.name,
-      client.address.city
+      client.address.city,
+      clientType
     );
-    return res.json({ client, token });
+    return res.json({ client, clientType, token });
   }
 
   async sendPhotoClient(req, res) {
@@ -88,8 +89,10 @@ class ClientController {
     } else return res.json(photo);
   }
   async findProfile(req, res) {
-    console.log(req.params.id)
-    const [provider] = await clientRepository.findServiceProvider(req.params.id);
+    console.log(req.params.id);
+    const [provider] = await clientRepository.findServiceProvider(
+      req.params.id
+    );
     return res.json(provider);
   }
 }

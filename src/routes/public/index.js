@@ -54,5 +54,5 @@ route.get(
   ServiceProviderController.listAcceptServices
 );
 route.post("/conclude-service/", ServiceProviderController.notifications);
-
+route.get("/findroom/:id", ClientController.findRoom)
 export default route;

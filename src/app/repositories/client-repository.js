@@ -109,11 +109,16 @@ class ClientRepository {
         "photo",
         "city",
         "provider.id_service_provider",
-        "serviceProviderService.id_service_provider_service", 
+        "serviceProviderService.id_service_provider_service",
         "nameService",
         "service.id_service"
       )
       .where("provider.id_service_provider", nameProvider);
+  }
+  async findRoom(idProvider) {
+    return await bauen("tb_service_provider")
+      .select("room")
+      .where("id_service_provider", idProvider);
   }
 }
 

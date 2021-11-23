@@ -22,8 +22,6 @@ class ServiceProviderController {
     const { email, password } = req.body;
     const serviceProvider =
       await serviceProviderRepository.findByEmailAndPassword(email, password);
-
-    console.log(req.body);
     if (!serviceProvider) {
       badRequestWithErrors(res, "usuário não encontrado", [
         {

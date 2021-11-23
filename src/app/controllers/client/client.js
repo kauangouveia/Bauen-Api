@@ -89,12 +89,15 @@ class ClientController {
     } else return res.json(photo);
   }
   async findProfile(req, res) {
-    console.log(req.params.id);
     const [provider] = await clientRepository.findServiceProvider(
       req.params.id
     );
     return res.json(provider);
   }
+  async findRoom(req, res) {
+    const [providerRoom] = await clientRepository.findRoom(req.params.id);
+    res.json(providerRoom);
+  } 
 }
 
 export default new ClientController();

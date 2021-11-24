@@ -53,6 +53,9 @@ route.get(
   "/listPendingServices/:id",
   ServiceProviderController.listAcceptServices
 );
-route.post("/conclude-service/", ServiceProviderController.notifications);
-route.get("/findroom/:id", ClientController.findRoom)
+route.get('/check', ServiceProviderController.checking)
+// route.post("/conclude-service/", ServiceProviderController.notifications);
+route.get('/check', ServiceProviderController.checking)
+
+route.get("/accept", ClientController.acceptFastServices)
 export default route;

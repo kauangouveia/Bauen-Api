@@ -30,7 +30,7 @@ class ServiceProviderController {
         },
       ]);
     }
-    const provider = 'provider'
+    const provider = "provider";
     const token = generateToken(
       serviceProvider.serviceProvider.id,
       email,
@@ -39,7 +39,7 @@ class ServiceProviderController {
       provider
     );
 
-    return res.json({ user: serviceProvider, provider,   token });
+    return res.json({ user: serviceProvider, provider, token });
   }
 
   async listServiceProvider(req, res) {
@@ -116,26 +116,38 @@ class ServiceProviderController {
   }
 
   async acceptFastServices(req, res) {
-
     try {
-      const services = await serviceProviderRepository.pendingservices(req.body);
-    
+      const services = await serviceProviderRepository.pendingservices(
+        req.body
+      );
+
       return res.json(services);
     } catch (error) {
       console.log(error.message);
     }
   }
   async listAcceptServices(req, res) {
-    const services = await serviceProviderRepository.listPendingServices(req.params.id);
+    const services = await serviceProviderRepository.listPendingServices(
+      req.params.id
+    );
     return res.json(services);
   }
 
-  async notifications(req, res){
-    const date = new Date();
-    const dateNow = date.getFullYear
-    const now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    const concludeService = await serviceProviderRepository.sendNotifications( dateNow,now)
-    return res.json(concludeService);
+  // async notifications(req, res){
+  //   const date = new Date();
+  //   const dateNow = date.getFullYear
+  //   const now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  //   const concludeService = await serviceProviderRepository.sendNotifications( dateNow,now)
+  //   return res.json(concludeService);
+  // }
+
+  async checking(req, res) {
+    const fastServices = await serviceProviderRepository.chekingFastServices();
+    if (fastServices.id_pending_services === true) {
+      console.log('teste')
+      return res.json(fastServices);
+    }   
+    
   }
 }
 

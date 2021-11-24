@@ -120,6 +120,16 @@ class ClientRepository {
       .select("room")
       .where("id_service_provider", idProvider);
   }
+  async acceptFastServices(id) {
+    return await bauen("tb_pending_services as pendingServices")
+      .join(
+        "tb_client_fast_services as clientFastServices",
+        "tb_pending_services.id_client",
+        "clientFastServices.id_client"
+      )
+      .select("id_client")
+      .where("id_client", id);
+  }
 }
 
 export default new ClientRepository();

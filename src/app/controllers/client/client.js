@@ -97,7 +97,11 @@ class ClientController {
   async findRoom(req, res) {
     const [providerRoom] = await clientRepository.findRoom(req.params.id);
     res.json(providerRoom);
-  } 
+  }
+  async acceptFastServices(req, res) {
+    const accept = await clientRepository.acceptFastServices(2);
+    return res.json({ accept, message: " Seu serviço foi aceito" });
+  }
 }
 
 export default new ClientController();

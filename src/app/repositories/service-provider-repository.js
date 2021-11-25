@@ -129,11 +129,6 @@ class ServiceProviderRepository {
       .where("id_service_provider", idServiceProvider);
   }
 
-  // async sendNotifications(notifications) {
-  //   return await bauen("tb_pending_services").insert({
-  //     finished_at: notifications,
-  //   })
-  // }
 
   async chekingFastServices() {
     return await bauen("tb_pending_services as pendingservices").join(

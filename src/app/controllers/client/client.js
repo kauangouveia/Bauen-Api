@@ -54,25 +54,20 @@ class ClientController {
 
   async fastService(req, res) {
     const fastService = req.file;
-    const { title, TypeOfService } = req.body;
-    const [Bearer, token] = req.headers.authorization.split(" ");
-    const userId = await jwt.verify(token, TOKEN.SECRET);
-    const [choiceTypeOfService] = await clientRepository.choiceTypeOfService(
-      TypeOfService
-    );
+    const { userId, title: titleService, TypeOfService } = req.body;
 
-    const FindIdAndCreateFastService = await clientRepository.sendFastService(
-      fastService.firebaseUrl,
-      title,
-      choiceTypeOfService.nameService
-    );
+    try {
+      await clientRepository.sendFastService({
+        userId,
+        titleService,
+        typeOfService: TypeOfService,
+        urlPhoto: fastService.firebaseUrl,
+      });
 
-    await clientRepository.sendServicesFastTableIntermediary(
-      FindIdAndCreateFastService,
-      userId.id
-    );
-
-    return res.json({ photo: fastService.firebaseUrl, title, TypeOfService });
+      return res.status(200);
+    } catch (error) {
+      return res.status(500);
+    }
   }
 
   async listFastServices(req, res) {

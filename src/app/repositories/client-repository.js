@@ -35,14 +35,15 @@ class ClientRepository {
       .where("nameService", typeService);
   }
 
-  async sendFastService(Urlphoto, titleService, TypeOfService) {
-    return await bauen("tb_fast_services")
-      .insert({
-        photo: Urlphoto,
-        title: titleService,
-        typeService: TypeOfService,
-      })
-      .select("id_fast_service");
+  async sendFastService({ userId, titleService, typeOfService, urlPhoto }) {
+    const created = await bauen("tb_fast_services").insert({
+      id_client: userId,
+      title: titleService,
+      type_service: typeOfService,
+      photo: urlPhoto,
+    });
+
+    console.log("AQUI: ", created);
   }
 
   async sendServicesFastTableIntermediary(idFastService, idClient) {

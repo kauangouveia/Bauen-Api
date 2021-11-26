@@ -53,29 +53,29 @@ class ClientRepository {
     });
   }
 
-  async showServices() {
-    return await bauen("tb_client AS client")
-      .join(
-        "tb_client_fast_services as clientFastServices",
-        "client.id_client",
-        "clientFastServices.id_client"
-      )
-      .join(
-        "tb_fast_services as fastService",
-        "fastService.id_fast_service",
-        "clientFastServices.id_fast_service"
-      )
-      .select({
-        name: "client.name",
-        id: "client.id_client",
-        idServiceFast: "clientFastServices.id_fast_service",
-        idTableIntermediary: "clientFastServices.id_client_fast_services",
-        title: "fastService.title",
-        typeService: "fastService.typeService",
-        photoClient: "client.photo",
-        photoService: "fastService.photo",
-      });
-  }
+  // async showServices() {
+  //   return await bauen("tb_client AS client")
+  //     .join(
+  //       "tb_client_fast_services as clientFastServices",
+  //       "client.id_client",
+  //       "clientFastServices.id_client"
+  //     )
+  //     .join(
+  //       "tb_fast_services as fastService",
+  //       "fastService.id_fast_service",
+  //       "clientFastServices.id_fast_service"
+  //     )
+  //     .select({
+  //       name: "client.name",
+  //       id: "client.id_client",
+  //       idServiceFast: "clientFastServices.id_fast_service",
+  //       idTableIntermediary: "clientFastServices.id_client_fast_services",
+  //       title: "fastService.title",
+  //       typeService: "fastService.typeService",
+  //       photoClient: "client.photo",
+  //       photoService: "fastService.photo",
+  //     });
+  // }
 
   async updatedPhotoProfileClient(photo, id) {
     return await bauen("tb_client AS client")
@@ -120,16 +120,6 @@ class ClientRepository {
     return await bauen("tb_service_provider")
       .select("room")
       .where("id_service_provider", idProvider);
-  }
-  async acceptFastServices(id) {
-    return await bauen("tb_pending_services as pendingServices")
-      .join(
-        "tb_client_fast_services as clientFastServices",
-        "tb_pending_services.id_client",
-        "clientFastServices.id_client"
-      )
-      .select("id_client")
-      .where("id_client", id);
   }
 }
 

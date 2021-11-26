@@ -40,7 +40,7 @@ class ClientRepository {
       id_client: userId,
       title: titleService,
       type_service: typeOfService,
-      photoService: urlPhoto,
+      photo_service: urlPhoto,
     });
 
     console.log("AQUI: ", created);

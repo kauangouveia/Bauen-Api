@@ -115,19 +115,54 @@ class ServiceProviderController {
     return res.json(findService);
   }
 
- 
-  async listAllFastServices(req, res){
+  async listAllFastServices(req, res) {
     try {
-      const fast = await serviceProviderRepository.listFastService()
-      return res.status(200).json(fast)
+      const fast = await serviceProviderRepository.listFastService();
+      return res.status(200).json(fast);
     } catch (error) {
-      console.log(error)
-      return res.status(200).json()
+      console.log(error);
+      return res.status(200).json();
     }
   }
 
-  asycn 
-  
+  async acceptServices(req, res) {
+    const date = new Date();
+    const time =
+      date.getFullYear() +
+      "-" +
+      parseInt(date.getMonth() + 1) +
+      "-" +
+      date.getDate() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds();
+
+    const { idService, id } = req.body;
+
+    try {
+      await serviceProviderRepository.acceptFastServices(time, idService);
+      await serviceProviderRepository.sendFastService(idService, id);
+      return res.status(200).json();
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "erro ao inserir um novo serviço rápido" });
+    }
+  }
+
+// listagem de serviços pendentes
+  async listPendingServices(req, res){
+          try {
+
+      const teste = await serviceProviderRepository.listPendingServices(1)
+      return res.json(teste)
+    } catch (error) {
+      console.log('erro')  
+    }
+  }
 }
 
 export default new ServiceProviderController();

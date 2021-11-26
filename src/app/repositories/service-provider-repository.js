@@ -112,22 +112,40 @@ class ServiceProviderRepository {
       .where("serviceProvider.id_service_provider", idServico);
   }
 
+  //
   async listFastService() {
     return await bauen("tb_fast_services as fastservice")
       .join("tb_client as client", "fastservice.id_client", "client.id_client")
       .select("*")
       .where("started_service_at", null);
   }
+
+  // Realizando updated no campo de inicio de serviço
   async acceptFastServices(date, idServiceFast) {
     return await bauen("tb_fast_services")
       .update("started_service_at", date)
       .where("id_fast_service", idServiceFast);
   }
+  // Inserindo novo serviço rapido na tabela intermediaria
   async sendFastService(idFastService, idProvider) {
     return await bauen("tb_fast_services_service_provider").insert({
       id_fast_service: idFastService,
-      id_service_provider: idProvider
+      id_service_provider: idProvider,
     });
+  }
+  // Listando todos os serviços pendentes do prestador logado
+
+  async listPendingServices(idProvider) {
+    return await bauen(
+      "tb_fast_services_service_provider as fastServicesProvider"
+    )
+      .join(
+        "tb_fast_services as fastService",
+        "fastServicesProvider.id_fast_service",
+        "fastService.id_fast_service"
+      )
+      .select("title", "photo_service", "type_service", "started_service_at")
+      .where("id_service_provider", idProvider);
   }
 }
 

@@ -48,7 +48,7 @@ route.post("/sendService", ServiceProviderController.sendTypeService);
 route.get("/chekingInformations", ServiceProviderController.checkInformations);
 route.get("/photo-client", ClientController.gettinhPhoto);
 route.get("/fastService", ServiceProviderController.listAllFastServices)
-
-
+route.post("/acceptServices", ServiceProviderController.acceptServices)
+route.get("/listPendingServices", ServiceProviderController.listPendingServices);
 
 export default route;

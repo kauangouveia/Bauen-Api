@@ -112,30 +112,22 @@ class ServiceProviderRepository {
       .where("serviceProvider.id_service_provider", idServico);
   }
 
-  async pendingservices(pedingService) {
-    return await bauen("tb_pending_services").insert({
-      id_client_fast_services: pedingService.idTableIntermediary,
-      id_client: pedingService.idClient,
-      id_service_provider: pedingService.idServiceProvider,
-      nameClient: pedingService.nameClient,
-      title_of_project: pedingService.titleProject,
-      photo: pedingService.photo,
+  async listFastService() {
+    return await bauen("tb_fast_services as fastservice")
+      .join("tb_client as client", "fastservice.id_client", "client.id_client")
+      .select("*")
+      .where("started_service_at", null);
+  }
+  async acceptFastServices(date, idServiceFast) {
+    return await bauen("tb_fast_services")
+      .update("started_service_at", date)
+      .where("id_fast_service", idServiceFast);
+  }
+  async sendFastService(idFastService, idProvider) {
+    return await bauen("tb_fast_services_service_provider").insert({
+      id_fast_service: idFastService,
+      id_service_provider: idProvider
     });
-  }
-
-  async listPendingServices(idServiceProvider) {
-    return await bauen("tb_pending_services")
-      .select("nameClient", "title_of_project", "photo")
-      .where("id_service_provider", idServiceProvider);
-  }
-
-
-  async chekingFastServices() {
-    return await bauen("tb_pending_services as pendingservices").join(
-      "tb_client_fast_services as clientFastService",
-      "clientFastService.id_client_fast_services",
-      "pendingservices.id_client_fast_services"
-    );
   }
 }
 

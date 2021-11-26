@@ -40,7 +40,7 @@ class ClientRepository {
       id_client: userId,
       title: titleService,
       type_service: typeOfService,
-      photo: urlPhoto,
+      photoService: urlPhoto,
     });
 
     console.log("AQUI: ", created);
@@ -116,11 +116,14 @@ class ClientRepository {
       )
       .where("provider.id_service_provider", nameProvider);
   }
+
   async findRoom(idProvider) {
     return await bauen("tb_service_provider")
       .select("room")
       .where("id_service_provider", idProvider);
   }
+
+ 
 }
 
 export default new ClientRepository();

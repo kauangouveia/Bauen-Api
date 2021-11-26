@@ -115,33 +115,19 @@ class ServiceProviderController {
     return res.json(findService);
   }
 
-  async acceptFastServices(req, res) {
+ 
+  async listAllFastServices(req, res){
     try {
-      const services = await serviceProviderRepository.pendingservices(
-        req.body
-      );
-
-      return res.json(services);
+      const fast = await serviceProviderRepository.listFastService()
+      return res.status(200).json(fast)
     } catch (error) {
-      console.log(error.message);
+      console.log(error)
+      return res.status(200).json()
     }
   }
-  async listAcceptServices(req, res) {
-    const services = await serviceProviderRepository.listPendingServices(
-      req.params.id
-    );
-    return res.json(services);
-  }
 
-
-  async checking(req, res) {
-    const fastServices = await serviceProviderRepository.chekingFastServices();
-    if (fastServices.id_pending_services === true) {
-      console.log('teste')
-      return res.json(fastServices);
-    }   
-    
-  }
+  asycn 
+  
 }
 
 export default new ServiceProviderController();

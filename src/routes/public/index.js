@@ -47,15 +47,8 @@ route.post("/sendService", ServiceProviderController.sendTypeService);
 
 route.get("/chekingInformations", ServiceProviderController.checkInformations);
 route.get("/photo-client", ClientController.gettinhPhoto);
+route.get("/fastService", ServiceProviderController.listAllFastServices)
 
-route.post("/pendingservices", ServiceProviderController.acceptFastServices);
-route.get(
-  "/listPendingServices/:id",
-  ServiceProviderController.listAcceptServices
-);
-route.get('/check', ServiceProviderController.checking)
-// route.post("/conclude-service/", ServiceProviderController.notifications);
-route.get('/check', ServiceProviderController.checking)
 
-route.get("/accept", ClientController.acceptFastServices)
+
 export default route;

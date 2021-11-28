@@ -47,8 +47,12 @@ route.post("/sendService", ServiceProviderController.sendTypeService);
 
 route.get("/chekingInformations", ServiceProviderController.checkInformations);
 route.get("/photo-client", ClientController.gettinhPhoto);
-route.get("/fastService", ServiceProviderController.listAllFastServices)
-route.post("/acceptServices", ServiceProviderController.acceptServices)
-route.get("/listPendingServices", ServiceProviderController.listPendingServices);
-
+route.get("/fastService", ServiceProviderController.listAllFastServices);
+route.post("/acceptServices", ServiceProviderController.acceptServices);
+route.get(
+  "/listPendingServices/:id",
+  ServiceProviderController.listPendingServices
+);
+route.get("/progress/:id", ClientController.serviceProgress);
+route.post("/completeService", ServiceProviderController.finishService);
 export default route;

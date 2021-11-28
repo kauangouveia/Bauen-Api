@@ -122,8 +122,21 @@ class ClientRepository {
       .select("room")
       .where("id_service_provider", idProvider);
   }
-
- 
+  async servicesInProgress(idClient) {
+    return await bauen("tb_fast_services as fastService")
+      .join(
+        "tb_fast_services_service_provider as fastServiceProvider",
+        "fastServiceProvider.id_fast_service",
+        "fastService.id_fast_service"
+      )
+      .join(
+        "tb_service_provider as provider",
+        "fastServiceProvider.id_service_provider",
+        "provider.id_service_provider"
+      )
+      .select("*")
+      .where("id_client", idClient);
+  }
 }
 
 export default new ClientRepository();

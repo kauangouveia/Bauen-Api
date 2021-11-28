@@ -144,8 +144,16 @@ class ServiceProviderRepository {
         "fastServicesProvider.id_fast_service",
         "fastService.id_fast_service"
       )
-      .select("title", "photo_service", "type_service", "started_service_at")
-      .where("id_service_provider", idProvider);
+      .join("tb_client as client", "fastService.id_client", "client.id_client")
+      .where("id_service_provider", idProvider)
+      .andWhere("service_finished_confirmed_by_client", null);
+    // .select("title", "photo_service", "type_service", "started_service_at", "name", "phone", "finished_at_by_service_provider"  )
+  }
+
+  async completeService(time, idFastService) {
+    return await bauen("tb_fast_services")
+      .update("finished_at_by_service_provider", time)
+      .where("id_fast_service", idFastService);
   }
 }
 

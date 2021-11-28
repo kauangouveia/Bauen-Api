@@ -153,14 +153,39 @@ class ServiceProviderController {
     }
   }
 
-// listagem de serviços pendentes
-  async listPendingServices(req, res){
-          try {
-
-      const teste = await serviceProviderRepository.listPendingServices(1)
-      return res.json(teste)
+  // listagem de serviços pendentes
+  async listPendingServices(req, res) {
+    try {
+      const pendingServices =
+        await serviceProviderRepository.listPendingServices(req.params.id);
+      return res.json(pendingServices);
     } catch (error) {
-      console.log('erro')  
+      console.log("erro");
+    }
+  }
+
+  async finishService(req, res) {
+    const date = new Date();
+    const time =
+      date.getFullYear() +
+      "-" +
+      parseInt(date.getMonth() + 1) +
+      "-" +
+      date.getDate() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds();
+    const { idServiceFast } = req.body;
+    try {
+      await serviceProviderRepository.completeService(time, idServiceFast);
+      return res
+        .status(200)
+        .json("Serviço Finalizado, basta aguardar a confirmação do prestador");
+    } catch (error) {
+      return res.status(500).json("ERRO");
     }
   }
 }

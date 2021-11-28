@@ -97,6 +97,10 @@ class ClientController {
     const accept = await clientRepository.acceptFastServices(2);
     return res.json({ accept, message: " Seu serviço foi aceito" });
   }
+  async serviceProgress(req, res){
+    const progress = await clientRepository.servicesInProgress(req.params.id)
+    return res.json(progress)
+  }
 }
 
 export default new ClientController();

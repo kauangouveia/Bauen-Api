@@ -114,7 +114,7 @@ class ServiceProviderController {
     );
     return res.json(findService);
   }
-
+  // listando todos os serviços rápidos
   async listAllFastServices(req, res) {
     try {
       const fast = await serviceProviderRepository.listFastService();
@@ -125,6 +125,7 @@ class ServiceProviderController {
     }
   }
 
+  // aceitando um serviço rápido
   async acceptServices(req, res) {
     const date = new Date();
     const time =
@@ -164,6 +165,7 @@ class ServiceProviderController {
     }
   }
 
+  // finalizando um serviço e aguardando confirmação do cliente
   async finishService(req, res) {
     const date = new Date();
     const time =

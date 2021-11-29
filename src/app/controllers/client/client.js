@@ -97,9 +97,39 @@ class ClientController {
     const accept = await clientRepository.acceptFastServices(2);
     return res.json({ accept, message: " Seu serviço foi aceito" });
   }
-  async serviceProgress(req, res){
-    const progress = await clientRepository.servicesInProgress(req.params.id)
-    return res.json(progress)
+  // listando todos os serviços em andamento do cliente
+  async serviceProgress(req, res) {
+    const progress = await clientRepository.servicesInProgress(req.params.id);
+    return res.json(progress);
+  }
+  // Confirmando finalização de um serviço
+
+  async confirmFinishService(req, res) {
+    const date = new Date();
+    const time =
+      date.getFullYear() +
+      "-" +
+      parseInt(date.getMonth() + 1) +
+      "-" +
+      date.getDate() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds();
+
+      const {idService} = req.body
+    try {
+      await clientRepository.confirmFastService(time, idService);
+      return res
+        .status(200)
+        .json({ message: "Confirmado finalização de serviço" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Erro ao finalizar um serviço" });
+    }
   }
 }
 

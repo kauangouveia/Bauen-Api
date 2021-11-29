@@ -149,7 +149,7 @@ class ServiceProviderRepository {
       .andWhere("service_finished_confirmed_by_client", null);
     // .select("title", "photo_service", "type_service", "started_service_at", "name", "phone", "finished_at_by_service_provider"  )
   }
-
+  // completando um serviço rapido
   async completeService(time, idFastService) {
     return await bauen("tb_fast_services")
       .update("finished_at_by_service_provider", time)

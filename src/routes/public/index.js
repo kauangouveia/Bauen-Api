@@ -55,4 +55,5 @@ route.get(
 );
 route.get("/progress/:id", ClientController.serviceProgress);
 route.post("/completeService", ServiceProviderController.finishService);
+route.post("/confirm", ClientController.confirmFinishService)
 export default route;

@@ -122,6 +122,7 @@ class ClientRepository {
       .select("room")
       .where("id_service_provider", idProvider);
   }
+  // listando todos os serviços do cliente em progresso
   async servicesInProgress(idClient) {
     return await bauen("tb_fast_services as fastService")
       .join(
@@ -135,7 +136,16 @@ class ClientRepository {
         "provider.id_service_provider"
       )
       .select("*")
-      .where("id_client", idClient);
+      .where("id_client", idClient)
+      .whereNotNull("started_service_at")
+      .whereNull("service_finished_confirmed_by_client");
+  }
+
+  // enviando confirmação de um serviços
+  async confirmFastService(time, idFastService) {
+    return await bauen("tb_fast_services")
+      .update("service_finished_confirmed_by_client", time)
+      .where("id_fast_service", idFastService);
   }
 }
 

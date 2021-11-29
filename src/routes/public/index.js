@@ -35,6 +35,12 @@ route.post(
   uploadImage,
   ClientController.sendPhotoClient
 );
+route.post(
+  "/portifolio",
+  Multer.single("portifolioPhoto"),
+  uploadImage,
+  ServiceProviderController.insertPortifolio
+);
 route.get("/servicesTypes", ServiceProviderController.showServices);
 
 route.get("/listFastServices", ClientController.listFastServices);

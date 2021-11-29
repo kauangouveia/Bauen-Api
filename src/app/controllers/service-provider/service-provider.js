@@ -190,6 +190,18 @@ class ServiceProviderController {
       return res.status(500).json("ERRO");
     }
   }
+
+  async insertPortifolio(req, res) {
+    const { idProvider } = req.body;
+    const portifolio = req.file;
+    console.log("dsad", idProvider, "ssasd", portifolio.firebaseUrl);
+
+    const teste = await serviceProviderRepository.addPhotoPortifolio(
+      idProvider,
+      portifolio.firebaseUrl
+    );
+    return res.json(teste);
+  }
 }
 
 export default new ServiceProviderController();

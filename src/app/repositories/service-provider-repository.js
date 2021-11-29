@@ -156,10 +156,10 @@ class ServiceProviderRepository {
       .where("id_fast_service", idFastService);
   }
 
-  async addPhotoPortifolio(idProvider, photo) {
+  async addPhotoPortifolio(idProvider, urlPhoto) {
     return await bauen("tb_portfolio_provider").insert({
       id_service_provider: idProvider,
-      photo_portifolio: photo,
+      photo_portifolio: urlPhoto,
     });
   }
 }

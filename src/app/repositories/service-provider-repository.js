@@ -155,6 +155,13 @@ class ServiceProviderRepository {
       .update("finished_at_by_service_provider", time)
       .where("id_fast_service", idFastService);
   }
+
+  async addPhotoPortifolio(idProvider, photo) {
+    return await bauen("tb_portfolio_provider").insert({
+      id_service_provider: idProvider,
+      photo_portifolio: photo,
+    });
+  }
 }
 
 export default new ServiceProviderRepository();

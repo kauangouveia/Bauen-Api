@@ -60,6 +60,7 @@ route.get(
   ServiceProviderController.listPendingServices
 );
 route.get("/progress/:id", ClientController.serviceProgress);
+route.get("/listportifolio/:id", ServiceProviderController.listPortifolio);
 route.post("/completeService", ServiceProviderController.finishService);
 route.post("/confirm", ClientController.confirmFinishService)
 export default route;

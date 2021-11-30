@@ -162,6 +162,12 @@ class ServiceProviderRepository {
       photo_portifolio: urlPhoto,
     });
   }
+
+  async listPhotosPortifolio(idProvider) {
+    return await bauen("tb_portfolio_provider")
+      .select("photo_portifolio")
+      .where("id_service_provider", idProvider);
+  }
 }
 
 export default new ServiceProviderRepository();

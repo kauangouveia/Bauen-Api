@@ -46,7 +46,7 @@ class ServiceProviderController {
     const serviceProviders = await serviceProviderRepository.findAll();
     if (serviceProviders.length === 0)
       return notFound(res, "Nenhum prestador de serviços foi encontrado");
-    return res.json({ serviceProviders });
+    return res.json(serviceProviders);
   }
 
   async listService(req, res) {

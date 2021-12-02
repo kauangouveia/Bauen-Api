@@ -194,8 +194,8 @@ class ServiceProviderController {
   async insertPortifolio(req, res) {
     const { idProvider } = req.body;
     const portifolio = req.file;
-    console.log(portifolio)
-   await serviceProviderRepository.addPhotoPortifolio(
+    console.log(portifolio);
+    await serviceProviderRepository.addPhotoPortifolio(
       idProvider,
       portifolio.firebaseUrl
     );
@@ -207,10 +207,19 @@ class ServiceProviderController {
       const list = await serviceProviderRepository.listPhotosPortifolio(
         req.params.id
       );
-      return res.status(200).json(list)
+      return res.status(200).json(list);
     } catch (error) {
-      console.log('erro')
+      console.log("erro");
     }
+  }
+
+  async listCommentsProvider(req, res) {
+    const comments = await serviceProviderRepository.listcomments(
+      req.params.id
+    );
+
+
+    return res.json(comments)
   }
 }
 

@@ -61,6 +61,8 @@ route.get(
 );
 route.get("/progress/:id", ClientController.serviceProgress);
 route.get("/listportifolio/:id", ServiceProviderController.listPortifolio);
+route.get("/list-comments/:id", ServiceProviderController.listCommentsProvider);
+
 route.post("/completeService", ServiceProviderController.finishService);
 route.post("/confirm", ClientController.confirmFinishService)
 route.post("/coments", ClientController.coment)

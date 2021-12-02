@@ -168,6 +168,13 @@ class ServiceProviderRepository {
       .select("photo_portifolio")
       .where("id_service_provider", idProvider);
   }
+
+  async listcomments(idProvider) {
+    return await bauen("tb_coments_provider as comments")
+      .join("tb_client as client", "comments.id_client", "client.id_client")
+      .select("*")
+      .where("id_service_provider", idProvider);
+  }
 }
 
 export default new ServiceProviderRepository();

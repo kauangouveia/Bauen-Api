@@ -119,16 +119,28 @@ class ClientController {
       ":" +
       date.getSeconds();
 
-      const {idService} = req.body
+    const { idService } = req.body;
     try {
       await clientRepository.confirmFastService(time, idService);
       return res
         .status(200)
         .json({ message: "Confirmado finalização de serviço" });
     } catch (error) {
+      return res.status(500).json({ message: "Erro ao finalizar um serviço" });
+    }
+  }
+
+  async coment(req, res) {
+    const { idProvider, idClient, coment } = req.body;
+    try {
+      await clientRepository.comentsServices(idProvider, idClient, coment);
+      return res
+        .status(200)
+        .json({ message: "Comentario adiconado com sucesso" });
+    } catch (error) {
       return res
         .status(500)
-        .json({ message: "Erro ao finalizar um serviço" });
+        .json({ message: "Erro ao adiocionar um comentario" });
     }
   }
 }

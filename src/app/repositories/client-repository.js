@@ -36,7 +36,7 @@ class ClientRepository {
   }
 
   async sendFastService({ userId, titleService, typeOfService, urlPhoto }) {
-     await bauen("tb_fast_services").insert({
+    await bauen("tb_fast_services").insert({
       id_client: userId,
       title: titleService,
       type_service: typeOfService,
@@ -144,6 +144,15 @@ class ClientRepository {
     return await bauen("tb_fast_services")
       .update("service_finished_confirmed_by_client", time)
       .where("id_fast_service", idFastService);
+  }
+
+  // adicionando comentario
+  async comentsServices(idProvider, idClient, text) {
+    return await bauen("tb_coments_provider").insert({
+      id_service_provider: idProvider,
+      id_client: idClient,
+      coment: text,
+    });
   }
 }
 

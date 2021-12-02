@@ -194,11 +194,12 @@ class ServiceProviderController {
   async insertPortifolio(req, res) {
     const { idProvider } = req.body;
     const portifolio = req.file;
-    const teste = await serviceProviderRepository.addPhotoPortifolio(
+    console.log(portifolio)
+   await serviceProviderRepository.addPhotoPortifolio(
       idProvider,
       portifolio.firebaseUrl
     );
-    return res.json(teste);
+    return res.json();
   }
 
   async listPortifolio(req, res) {

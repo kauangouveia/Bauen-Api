@@ -203,7 +203,7 @@ class ServiceProviderController {
 
   async listPortifolio(req, res) {
     try {
-      const [list] = await serviceProviderRepository.listPhotosPortifolio(
+      const list = await serviceProviderRepository.listPhotosPortifolio(
         req.params.id
       );
       return res.status(200).json(list)

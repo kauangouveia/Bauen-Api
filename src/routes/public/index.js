@@ -66,5 +66,6 @@ route.get("/list-comments/:id", ServiceProviderController.listCommentsProvider);
 route.post("/completeService", ServiceProviderController.finishService);
 route.post("/confirm", ClientController.confirmFinishService)
 route.post("/coments", ClientController.coment)
+route.get("/quantityservices/:id", ServiceProviderController.quantityServices)
 
 export default route;

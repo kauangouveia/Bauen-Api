@@ -175,6 +175,18 @@ class ServiceProviderRepository {
       .select("*")
       .where("id_service_provider", idProvider);
   }
+
+  async listQuantityServices(idProvider) {
+    return await bauen("tb_fast_services as fast")
+      .join(
+        "tb_fast_services_service_provider as fastserviceprovider",
+        "fast.id_fast_service",
+        "fastserviceprovider.id_fast_service"
+      )
+      .select("*")
+      .where("id_service_provider", idProvider)
+      .whereNotNull("finished_at_by_service_provider");
+  }
 }
 
 export default new ServiceProviderRepository();

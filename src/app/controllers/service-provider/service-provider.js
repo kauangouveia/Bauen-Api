@@ -217,9 +217,14 @@ class ServiceProviderController {
     const comments = await serviceProviderRepository.listcomments(
       req.params.id
     );
-
-
     return res.json(comments)
+  }
+
+  async quantityServices(req, res) {
+    const list = await serviceProviderRepository.listQuantityServices(
+      req.params.id
+    );
+    return res.json(list)
   }
 }
 

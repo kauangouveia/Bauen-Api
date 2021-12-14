@@ -185,7 +185,7 @@ class ServiceProviderController {
       await serviceProviderRepository.completeService(time, idServiceFast);
       return res
         .status(200)
-        .json("Serviço Finalizado, basta aguardar a confirmação do prestador");
+        .json("Serviço finalizado, aguarde a confirmação do cliente");
     } catch (error) {
       return res.status(500).json("ERRO");
     }

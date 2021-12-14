@@ -124,7 +124,7 @@ class ClientController {
       await clientRepository.confirmFastService(time, idService);
       return res
         .status(200)
-        .json({ message: "Confirmado finalização de serviço" });
+        .json({ message: "Finalização de serviço confirmado" });
     } catch (error) {
       return res.status(500).json({ message: "Erro ao finalizar um serviço" });
     }

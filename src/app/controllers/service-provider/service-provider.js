@@ -217,14 +217,26 @@ class ServiceProviderController {
     const comments = await serviceProviderRepository.listcomments(
       req.params.id
     );
-    return res.json(comments)
+    return res.json(comments);
   }
 
   async quantityServices(req, res) {
     const list = await serviceProviderRepository.listQuantityServices(
       req.params.id
     );
-    return res.json(list)
+    return res.json(list);
+  }
+
+  async cancelService(req, res) {
+    const { idFastService } = req.body;
+
+    const cancel = await serviceProviderRepository.cancelFastSerivce(
+      idFastService
+    );
+    const deleteService = await serviceProviderRepository.deleteService(
+      idFastService
+    );
+    return res.json({ cancel, deleteService });
   }
 }
 

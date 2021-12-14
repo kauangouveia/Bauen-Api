@@ -67,5 +67,6 @@ route.post("/completeService", ServiceProviderController.finishService);
 route.post("/confirm", ClientController.confirmFinishService)
 route.post("/coments", ClientController.coment)
 route.get("/quantityservices/:id", ServiceProviderController.quantityServices)
+route.post("/cancel", ServiceProviderController.cancelService)
 
 export default route;

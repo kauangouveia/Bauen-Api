@@ -147,6 +147,7 @@ class ServiceProviderRepository {
       .join("tb_client as client", "fastService.id_client", "client.id_client")
       .where("id_service_provider", idProvider)
       .andWhere("service_finished_confirmed_by_client", null);
+    // .whereNotNull("started_service_at", null)
     // .select("title", "photo_service", "type_service", "started_service_at", "name", "phone", "finished_at_by_service_provider"  )
   }
   // completando um serviço rapido
@@ -186,6 +187,16 @@ class ServiceProviderRepository {
       .select("*")
       .where("id_service_provider", idProvider)
       .whereNotNull("finished_at_by_service_provider");
+  }
+  async cancelFastSerivce(idFast) {
+    return await bauen("tb_fast_services")
+      .update("started_service_at", null)
+      .where("id_fast_service", idFast);
+  }
+  async deleteService(idFast) {
+    return await bauen("tb_fast_services_service_provider")
+      .delete()
+      .where("id_fast_service", idFast);
   }
 }
 

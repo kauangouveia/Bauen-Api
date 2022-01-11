@@ -14,14 +14,14 @@ const bucket = admin.storage().bucket()
 
 const uploadImage = (req, res, next) => {
     if(!req.file)return next();
-    const imagem = req.file;
-    const nameFile = Date.now() + "." + imagem.originalname.split(".").pop();
+    const image = req.file;
+    const nameFile = Date.now() + "." + image.originalname.split(".").pop();
 
     const file = bucket.file(nameFile);
 
     const stream = file.createWriteStream({
         metadata :{
-            contentType: imagem.mimetype,
+            contentType: image.mimetype,
         },
 
     });
@@ -34,7 +34,7 @@ const uploadImage = (req, res, next) => {
 
         next();
     })
-    stream.end(imagem.buffer)
+    stream.end(image.buffer)
 };
 
 export default uploadImage;
